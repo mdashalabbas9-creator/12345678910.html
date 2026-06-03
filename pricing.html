@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Pricing Plans</title>
+    <style>
+        /* --- Reset & Core Variables --- */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary-accent: #6366f1;
+            --secondary-accent: #d946ef;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --neon-glow: 0 0 25px rgba(99, 102, 241, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            overflow-x: hidden;
+        }
+
+        /* --- Background Decorative Elements --- */
+        .bg-blur {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--primary-accent);
+            filter: blur(150px);
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: 50%;
+            animation: float-bg 20s infinite alternate ease-in-out;
+        }
+        .bg-blur.alt {
+            background: var(--secondary-accent);
+            right: 10%;
+            top: 20%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float-bg {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 50px) scale(1.2); }
+        }
+
+        /* --- Header & Typography --- */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInDown 1s forwards ease-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* --- Toggle Switch --- */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+            border-radius: 2rem;
+            border: 1px solid var(--card-border);
+            width: fit-content;
+            opacity: 0;
+            animation: fadeIn 1s 0.3s forwards ease-out;
+        }
+
+        .toggle-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .toggle-label.active {
+            color: var(--text-main);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 32px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 34px;
+            border: 1px solid var(--card-border);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-accent);
+            box-shadow: var(--neon-glow);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(28px);
+        }
+
+        /* --- Pricing Grid & Cards --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(300px, 360px));
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem 2.25rem;
+            position: relative;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.2, 1, 0.2, 1), border-color 0.4s, box-shadow 0.4s;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+        }
+
+        /* Staggered entry animations */
+        .card:nth-child(1) { animation-delay: 0.4s; }
+        .card:nth-child(2) { animation-delay: 0.6s; }
+        .card:nth-child(3) { animation-delay: 0.8s; }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Premium Highlighted Card Styling */
+        .card.popular {
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.05);
+        }
+
+        .card.popular:hover {
+            border-color: var(--primary-accent);
+            box-shadow: var(--neon-glow), 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .badge {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05rem;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- Card Content --- */
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            min-height: 45px;
+        }
+
+        .price-container {
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+        }
+
+        .currency {
+            font-size: 1.75rem;
+            font-weight: 600;
+            align-self: flex-start;
+            margin-top: 0.2rem;
+        }
+
+        .price {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        /* Price change flip animation class */
+        .price-animate {
+            animation: flipPrice 0.4s ease-out;
+        }
+
+        .period {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-left: 0.25rem;
+        }
+
+        /* --- Features List --- */
+        .features-list {
+            list-style: none;
+            margin-bottom: 3rem;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+
+        .features-list svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-accent);
+            flex-shrink: 0;
+        }
+
+        .card.popular .features-list svg {
+            color: var(--secondary-accent);
+        }
+
+        /* --- Action Buttons --- */
+        .cta-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .cta-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card.popular .cta-btn {
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .card.popular .cta-btn:hover {
+            box-shadow: var(--neon-glow);
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        /* --- Keyframe Animations --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes flipPrice {
+            0% { transform: translateY(-10px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+            }
+            .card.popular {
+                order: -1; /* Puts the featured plan on top on mobile layouts */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blur"></div>
+    <div class="bg-blur alt"></div>
+
+    <header>
+        <h1>Flexible Plans, Built for Scale</h1>
+        <p class="subtitle">Choose the perfect plan for your business. No hidden fees.</p>
+    </header>
+
+    <div class="toggle-container">
+        <span class="toggle-label active" id="monthly-label">Monthly</span>
+        <label class="switch">
+            <input type="checkbox" id="billing-toggle">
+            <span class="slider"></span>
+        </label>
+        <span class="toggle-label" id="yearly-label">Yearly (Save 20%)</span>
+    </div>
+
+    <main class="pricing-grid">
+
+        <article class="card">
+            <h2 class="plan-name">Starter</h2>
+            <p class="plan-description">Essential tools for individuals and side projects.</p>
+            <div class="price-container">
+                <span class="currency">$</span>
+                <span class="price" id="price-starter" data-monthly="19" data-yearly="15">19</span>
+                <span class="period" id="period-starter">/mo</span>
+            </div>
+            <ul class="features-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 1 Active Project</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 10GB Cloud Storage</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Basic Analytics</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Email Support</li>
+            </ul>
+            <button class="cta-btn">Get Started</button>
+        </article>
+
+        <article class="card popular">
+            <div class="badge">Most Popular</div>
+            <h2 class="plan-name">Pro Studio</h2>
+            <p class="plan-description">Perfect for growing teams and scaling production.</p>
+            <div class="price-container">
+                <span class="currency">$</span>
+                <span class="price" id="price-pro" data-monthly="49" data-yearly="39">49</span>
+                <span class="period" id="period-pro">/mo</span>
+            </div>
+            <ul class="features-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Unlimited Projects</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 100GB Cloud Storage</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Advanced Real-time Analytics</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> 24/7 Priority Support</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Team Collaboration Tools</li>
+            </ul>
+            <button class="cta-btn">Upgrade to Pro</button>
+        </article>
+
+        <article class="card">
+            <h2 class="plan-name">Enterprise</h2>
+            <p class="plan-description">Customizable control and security for large corporations.</p>
+            <div class="price-container">
+                <span class="currency">$</span>
+                <span class="price" id="price-enterprise" data-monthly="99" data-yearly="79">99</span>
+                <span class="period" id="period-enterprise">/mo</span>
+            </div>
+            <ul class="features-list">
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Everything in Pro</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Dedicated Infrastructure</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Custom SLA Guarantees</li>
+                <li><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> Dedicated Account Manager</li>
+            </ul>
+            <button class="cta-btn">Contact Sales</button>
+        </article>
+
+    </main>
+
+    <script>
+        const toggle = document.getElementById('billing-toggle');
+        const monthlyLabel = document.getElementById('monthly-label');
+        const yearlyLabel = document.getElementById('yearly-label');
+        
+        const priceElements = document.querySelectorAll('.price');
+        const periodElements = document.querySelectorAll('.period');
+
+        toggle.addEventListener('change', () => {
+            const isYearly = toggle.checked;
+
+            // Toggle active text styling
+            if (isYearly) {
+                monthlyLabel.classList.remove('active');
+                yearlyLabel.classList.add('active');
+            } else {
+                monthlyLabel.classList.add('active');
+                yearlyLabel.classList.remove('active');
+            }
+
+            // Update prices with subtle flip animation
+            priceElements.forEach(priceEl => {
+                const targetPrice = isYearly ? priceEl.getAttribute('data-yearly') : priceEl.getAttribute('data-monthly');
+                
+                priceEl.classList.remove('price-animate');
+                // Trigger reflow to restart CSS animation smoothly
+                void priceEl.offsetWidth; 
+                
+                priceEl.textContent = targetPrice;
+                priceEl.classList.add('price-animate');
+            });
+
+            // Update period indicators
+            periodElements.forEach(periodEl => {
+                periodEl.textContent = isYearly ? '/mo, billed yearly' : '/mo';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Project Report</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c92d2);
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* Animated Background */
+
+.bg-circle{
+    position:fixed;
+    border-radius:50%;
+    background:rgba(59,130,246,.08);
+    z-index:-1;
+    animation:float 15s infinite linear;
+}
+
+.c1{
+    width:300px;
+    height:300px;
+    top:10%;
+    left:-100px;
+}
+
+.c2{
+    width:400px;
+    height:400px;
+    bottom:0;
+    right:-150px;
+    animation-duration:20s;
+}
+
+@keyframes float{
+    0%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-50px) rotate(180deg);}
+    100%{transform:translateY(0) rotate(360deg);}
+}
+
+/* Header */
+
+header{
+    text-align:center;
+    padding:80px 20px;
+    animation:fadeIn 1.2s ease;
+}
+
+header h1{
+    font-size:4rem;
+    background:linear-gradient(45deg,#38bdf8,#06b6d4);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+header p{
+    margin-top:15px;
+    color:#cbd5e1;
+    font-size:18px;
+}
+
+/* Container */
+
+.container{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+}
+
+/* Glass Card */
+
+.card{
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:30px;
+    margin-bottom:30px;
+    animation:slideUp 1s ease;
+    transition:.4s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+/* Overview */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.stat{
+    text-align:center;
+}
+
+.stat i{
+    font-size:40px;
+    color:#38bdf8;
+    margin-bottom:15px;
+}
+
+.stat h2{
+    font-size:35px;
+}
+
+.stat p{
+    color:#cbd5e1;
+}
+
+/* Progress */
+
+.progress-box{
+    margin:25px 0;
+}
+
+.progress-title{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+.progress{
+    height:12px;
+    background:rgba(255,255,255,.08);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#06b6d4,#3b82f6);
+    animation:loadBar 2s ease forwards;
+}
+
+@keyframes loadBar{
+    from{
+        width:0;
+    }
+}
+
+/* Timeline */
+
+.timeline{
+    position:relative;
+    margin-top:30px;
+}
+
+.timeline::before{
+    content:'';
+    position:absolute;
+    left:20px;
+    top:0;
+    width:4px;
+    height:100%;
+    background:#38bdf8;
+}
+
+.timeline-item{
+    margin-left:60px;
+    margin-bottom:30px;
+    position:relative;
+}
+
+.timeline-item::before{
+    content:'';
+    position:absolute;
+    left:-48px;
+    top:5px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#38bdf8;
+}
+
+.timeline-item h3{
+    margin-bottom:5px;
+}
+
+/* Team Cards */
+
+.team{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.member{
+    background:rgba(255,255,255,.04);
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    transition:.4s;
+}
+
+.member:hover{
+    transform:scale(1.05);
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:linear-gradient(45deg,#06b6d4,#3b82f6);
+    margin:auto;
+    margin-bottom:15px;
+}
+
+/* Report Table */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:15px;
+    text-align:left;
+}
+
+th{
+    background:rgba(255,255,255,.08);
+}
+
+tr:nth-child(even){
+    background:rgba(255,255,255,.03);
+}
+
+/* Footer */
+
+footer{
+    text-align:center;
+    padding:40px;
+    color:#94a3b8;
+}
+
+/* Animations */
+
+@keyframes slideUp{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+@media(max-width:768px){
+
+header h1{
+    font-size:2.5rem;
+}
+
+.timeline-item{
+    margin-left:50px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-circle c1"></div>
+<div class="bg-circle c2"></div>
+
+<header>
+    <h1>PROJECT REPORT</h1>
+    <p>Professional Project Documentation & Performance Analysis</p>
+</header>
+
+<div class="container">
+
+    <!-- Project Overview -->
+
+    <div class="card">
+        <h2>Project Overview</h2>
+        <br>
+
+        <div class="grid">
+
+            <div class="stat">
+                <i class="fas fa-tasks"></i>
+                <h2>85%</h2>
+                <p>Completion</p>
+            </div>
+
+            <div class="stat">
+                <i class="fas fa-users"></i>
+                <h2>12</h2>
+                <p>Team Members</p>
+            </div>
+
+            <div class="stat">
+                <i class="fas fa-calendar"></i>
+                <h2>180</h2>
+                <p>Working Days</p>
+            </div>
+
+            <div class="stat">
+                <i class="fas fa-chart-line"></i>
+                <h2>98%</h2>
+                <p>Success Rate</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Progress -->
+
+    <div class="card">
+        <h2>Project Progress</h2>
+
+        <div class="progress-box">
+            <div class="progress-title">
+                <span>Planning</span>
+                <span>100%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" style="width:100%"></div>
+            </div>
+        </div>
+
+        <div class="progress-box">
+            <div class="progress-title">
+                <span>Design</span>
+                <span>95%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" style="width:95%"></div>
+            </div>
+        </div>
+
+        <div class="progress-box">
+            <div class="progress-title">
+                <span>Development</span>
+                <span>85%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" style="width:85%"></div>
+            </div>
+        </div>
+
+        <div class="progress-box">
+            <div class="progress-title">
+                <span>Testing</span>
+                <span>75%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" style="width:75%"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Timeline -->
+
+    <div class="card">
+        <h2>Project Timeline</h2>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <h3>Project Started</h3>
+                <p>Requirement gathering and planning phase.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Design Completed</h3>
+                <p>UI/UX finalized and approved.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Development Phase</h3>
+                <p>Backend and frontend implementation.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Testing & QA</h3>
+                <p>Bug fixing and optimization process.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Team -->
+
+    <div class="card">
+        <h2>Project Team</h2>
+        <br>
+
+        <div class="team">
+
+            <div class="member">
+                <div class="avatar"></div>
+                <h3>Project Manager</h3>
+                <p>Leadership & Planning</p>
+            </div>
+
+            <div class="member">
+                <div class="avatar"></div>
+                <h3>UI/UX Designer</h3>
+                <p>Design & Experience</p>
+            </div>
+
+            <div class="member">
+                <div class="avatar"></div>
+                <h3>Developer</h3>
+                <p>Frontend & Backend</p>
+            </div>
+
+            <div class="member">
+                <div class="avatar"></div>
+                <h3>QA Engineer</h3>
+                <p>Testing & Validation</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Report Data -->
+
+    <div class="card">
+        <h2>Project Metrics</h2>
+        <br>
+
+        <table>
+            <tr>
+                <th>Module</th>
+                <th>Status</th>
+                <th>Progress</th>
+            </tr>
+
+            <tr>
+                <td>Authentication</td>
+                <td>Completed</td>
+                <td>100%</td>
+            </tr>
+
+            <tr>
+                <td>Dashboard</td>
+                <td>Completed</td>
+                <td>95%</td>
+            </tr>
+
+            <tr>
+                <td>API Integration</td>
+                <td>In Progress</td>
+                <td>85%</td>
+            </tr>
+
+            <tr>
+                <td>Testing</td>
+                <td>Pending</td>
+                <td>75%</td>
+            </tr>
+
+        </table>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Professional Project Report | Designed with HTML & CSS
+</footer>
+
+</body>
+</html>

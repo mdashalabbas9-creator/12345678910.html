@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Dashboard</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c92d2);
+    min-height:100vh;
+    overflow-x:hidden;
+    color:white;
+}
+
+.container{
+    display:flex;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:270px;
+    height:100vh;
+    position:fixed;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(20px);
+    border-right:1px solid rgba(255,255,255,0.1);
+    padding:25px;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:50px;
+    text-align:center;
+    color:#38bdf8;
+}
+
+.menu{
+    list-style:none;
+}
+
+.menu li{
+    margin:15px 0;
+}
+
+.menu a{
+    text-decoration:none;
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:14px;
+    border-radius:12px;
+    transition:.4s;
+}
+
+.menu a:hover{
+    background:linear-gradient(45deg,#0ea5e9,#06b6d4);
+    transform:translateX(10px);
+}
+
+/* Main */
+
+.main{
+    margin-left:270px;
+    width:100%;
+    padding:30px;
+}
+
+/* Topbar */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.search{
+    width:350px;
+    background:rgba(255,255,255,0.08);
+    padding:12px 20px;
+    border-radius:15px;
+    backdrop-filter:blur(10px);
+}
+
+.search input{
+    background:none;
+    border:none;
+    outline:none;
+    color:white;
+    width:100%;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:linear-gradient(45deg,#38bdf8,#0ea5e9);
+}
+
+/* Cards */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:25px;
+    border-radius:20px;
+    transition:.4s;
+    position:relative;
+    overflow:hidden;
+    animation:fadeUp 1s ease forwards;
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    width:150%;
+    height:150%;
+    background:linear-gradient(
+        45deg,
+        transparent,
+        rgba(255,255,255,0.1),
+        transparent
+    );
+    top:-100%;
+    left:-100%;
+    transition:1s;
+}
+
+.card:hover::before{
+    top:100%;
+    left:100%;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.card h3{
+    color:#010408;
+    margin-bottom:10px;
+}
+
+.card h1{
+    font-size:35px;
+    margin-bottom:8px;
+}
+
+.growth{
+    color:#08471f;
+    font-weight:bold;
+}
+
+/* Charts */
+
+.charts{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:25px;
+}
+
+.chart-box,
+.activity{
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(20px);
+    border-radius:20px;
+    padding:25px;
+    min-height:350px;
+}
+
+.chart-placeholder{
+    height:250px;
+    margin-top:20px;
+    border-radius:15px;
+    background:linear-gradient(
+        90deg,
+        rgba(56,189,248,.2),
+        rgba(14,165,233,.4),
+        rgba(56,189,248,.2)
+    );
+    animation:gradientMove 4s infinite linear;
+    background-size:400% 400%;
+}
+
+.activity ul{
+    list-style:none;
+    margin-top:20px;
+}
+
+.activity li{
+    padding:15px;
+    margin-bottom:12px;
+    background:rgba(255,255,255,0.05);
+    border-radius:12px;
+    transition:.3s;
+}
+
+.activity li:hover{
+    transform:translateX(10px);
+}
+
+/* Floating Background */
+
+.circle{
+    position:fixed;
+    border-radius:50%;
+    background:rgba(56,189,248,0.08);
+    animation:float 12s infinite linear;
+    z-index:-1;
+}
+
+.c1{
+    width:250px;
+    height:250px;
+    top:10%;
+    left:5%;
+}
+
+.c2{
+    width:350px;
+    height:350px;
+    right:5%;
+    bottom:5%;
+    animation-duration:18s;
+}
+
+/* Animations */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes gradientMove{
+    0%{background-position:0%}
+    100%{background-position:400%}
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(0) rotate(0);
+    }
+    50%{
+        transform:translateY(-40px) rotate(180deg);
+    }
+    100%{
+        transform:translateY(0) rotate(360deg);
+    }
+}
+
+@media(max-width:1000px){
+    .charts{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:768px){
+
+    .sidebar{
+        width:80px;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    .menu a span{
+        display:none;
+    }
+
+    .main{
+        margin-left:80px;
+    }
+
+    .search{
+        width:200px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="circle c1"></div>
+<div class="circle c2"></div>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">PRO DASH</div>
+
+        <ul class="menu">
+            <li><a href="#"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fas fa-users"></i><span>Users</span></a></li>
+            <li><a href="#"><i class="fas fa-wallet"></i><span>Finance</span></a></li>
+            <li><a href="#"><i class="fas fa-chart-pie"></i><span>Analytics</span></a></li>
+            <li><a href="#"><i class="fas fa-file"></i><span>Reports</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i><span>Settings</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+        <div class="topbar">
+
+            <div class="search">
+                <input type="text" placeholder="Search...">
+            </div>
+
+            <div class="profile">
+                <div>
+                    <h4>Admin User</h4>
+                    <small>Administrator</small>
+                </div>
+                <div class="avatar"></div>
+            </div>
+
+        </div>
+
+        <!-- Cards -->
+
+        <section class="cards">
+
+            <div class="card">
+                <h3>Total Revenue</h3>
+                <h1>$86,420</h1>
+                <p class="growth">+12.8%</p>
+            </div>
+
+            <div class="card">
+                <h3>Customers</h3>
+                <h1>14,280</h1>
+                <p class="growth">+8.3%</p>
+            </div>
+
+            <div class="card">
+                <h3>Orders</h3>
+                <h1>5,420</h1>
+                <p class="growth">+5.1%</p>
+            </div>
+
+            <div class="card">
+                <h3>Conversion</h3>
+                <h1>24.5%</h1>
+                <p class="growth">+3.7%</p>
+            </div>
+
+        </section>
+
+        <!-- Charts -->
+
+        <section class="charts">
+
+            <div class="chart-box">
+                <h2>Revenue Analytics</h2>
+                <div class="chart-placeholder"></div>
+            </div>
+
+            <div class="activity">
+                <h2>Recent Activity</h2>
+
+                <ul>
+                    <li>New order received</li>
+                    <li>Payment successfully processed</li>
+                    <li>New customer registered</li>
+                    <li>Monthly report generated</li>
+                    <li>System update completed</li>
+                </ul>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

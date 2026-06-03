@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Contact Us</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+:root{
+    --primary:#00c6ff;
+    --secondary:#0072ff;
+    --dark:#050816;
+    --card:rgba(255,255,255,.08);
+    --text:#ffffff;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    background:linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c92d2
+   );
+    color:var(--text);
+}
+
+/* ===========================
+   Animated Background
+=========================== */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+}
+
+.background::before{
+    content:'';
+    position:absolute;
+    width:700px;
+    height:700px;
+    background:radial-gradient(circle,
+    rgba(0,198,255,.25),
+    transparent 70%);
+    top:-200px;
+    left:-200px;
+    animation:moveGlow1 12s infinite alternate;
+}
+
+.background::after{
+    content:'';
+    position:absolute;
+    width:800px;
+    height:800px;
+    background:radial-gradient(circle,
+    rgba(0,114,255,.18),
+    transparent 70%);
+    right:-250px;
+    bottom:-250px;
+    animation:moveGlow2 15s infinite alternate;
+}
+
+@keyframes moveGlow1{
+    to{
+        transform:translate(120px,80px);
+    }
+}
+
+@keyframes moveGlow2{
+    to{
+        transform:translate(-120px,-80px);
+    }
+}
+
+/* Floating Shapes */
+
+.shape{
+    position:fixed;
+    border-radius:50%;
+    background:rgba(255,255,255,.04);
+    backdrop-filter:blur(20px);
+    animation:float 18s linear infinite;
+    z-index:-1;
+}
+
+.s1{
+    width:120px;
+    height:120px;
+    top:10%;
+    left:8%;
+}
+
+.s2{
+    width:180px;
+    height:180px;
+    top:70%;
+    left:15%;
+    animation-duration:22s;
+}
+
+.s3{
+    width:150px;
+    height:150px;
+    top:15%;
+    right:10%;
+}
+
+.s4{
+    width:220px;
+    height:220px;
+    bottom:5%;
+    right:5%;
+    animation-duration:25s;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(0) rotate(0deg);
+    }
+    50%{
+        transform:translateY(-50px) rotate(180deg);
+    }
+    100%{
+        transform:translateY(0) rotate(360deg);
+    }
+}
+
+/* ===========================
+   Main Container
+=========================== */
+
+.container{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:80px 0;
+}
+
+/* Contact Wrapper */
+
+.contact-wrapper{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    width:100%;
+}
+
+/* Left Side */
+
+.contact-info{
+    animation:slideLeft 1s ease;
+}
+
+.contact-info h1{
+    font-size:4rem;
+    margin-bottom:20px;
+    line-height:1.1;
+}
+
+.contact-info h1 span{
+    color:var(--primary);
+}
+
+.contact-info p{
+    color:#cbd5e1;
+    line-height:1.8;
+    margin-bottom:40px;
+}
+
+.info-box{
+    background:var(--card);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    transition:.4s;
+}
+
+.info-box:hover{
+    transform:translateX(10px);
+}
+
+.icon{
+    width:60px;
+    height:60px;
+    border-radius:15px;
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:25px;
+}
+
+/* Right Side Form */
+
+.contact-form{
+    background:var(--card);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:30px;
+    padding:40px;
+    animation:slideRight 1s ease;
+}
+
+.contact-form h2{
+    margin-bottom:25px;
+    font-size:2rem;
+}
+
+.input-group{
+    margin-bottom:20px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:16px;
+    border:none;
+    outline:none;
+    border-radius:15px;
+    background:rgba(255,255,255,.08);
+    color:white;
+    font-size:15px;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#cbd5e1;
+}
+
+textarea{
+    min-height:150px;
+    resize:none;
+}
+
+.btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+    transition:.4s;
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 30px rgba(0,198,255,.3);
+}
+
+/* Social Icons */
+
+.socials{
+    display:flex;
+    gap:15px;
+    margin-top:30px;
+}
+
+.social{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:.4s;
+    cursor:pointer;
+}
+
+.social:hover{
+    transform:translateY(-8px);
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+}
+
+/* Animations */
+
+@keyframes slideLeft{
+    from{
+        opacity:0;
+        transform:translateX(-80px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+@keyframes slideRight{
+    from{
+        opacity:0;
+        transform:translateX(80px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.contact-wrapper{
+    grid-template-columns:1fr;
+}
+
+.contact-info h1{
+    font-size:3rem;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="shape s1"></div>
+<div class="shape s2"></div>
+<div class="shape s3"></div>
+<div class="shape s4"></div>
+
+<div class="container">
+
+    <div class="contact-wrapper">
+
+        <!-- Contact Info -->
+
+        <div class="contact-info">
+
+            <h1>Let's <span>Connect</span></h1>
+
+            <p>
+                We'd love to hear from you. Whether you have a project,
+                business inquiry, partnership opportunity, or simply want
+                to say hello, our team is ready to help.
+            </p>
+
+            <div class="info-box">
+                <div class="icon">📍</div>
+                <div>
+                    <h3>Office Address</h3>
+                    <p>Business District, Your City</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="icon">📞</div>
+                <div>
+                    <h3>Phone Number</h3>
+                    <p>+1 234 567 890</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="icon">✉️</div>
+                <div>
+                    <h3>Email Address</h3>
+                    <p>contact@yourcompany.com</p>
+                </div>
+            </div>
+
+            <div class="socials">
+                <div class="social">🌐</div>
+                <div class="social">📘</div>
+                <div class="social">📸</div>
+                <div class="social">💼</div>
+            </div>
+
+        </div>
+
+        <!-- Contact Form -->
+
+        <div class="contact-form">
+
+            <h2>Send Message</h2>
+
+            <div class="input-group">
+                <input type="text" placeholder="Full Name">
+            </div>
+
+            <div class="input-group">
+                <input type="email" placeholder="Email Address">
+            </div>
+
+            <div class="input-group">
+                <input type="text" placeholder="Subject">
+            </div>
+
+            <div class="input-group">
+                <textarea placeholder="Write your message..."></textarea>
+            </div>
+
+            <button class="btn">
+                Send Message 🚀
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
